@@ -1,0 +1,33 @@
+{
+  "name": "VIP Zendesk AI Helper",
+  "author": {
+    "name": "VIP Support",
+    "email": "support@wpvip.com",
+    "url": "https://wpvip.com"
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": {
+    "support": {
+      "ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "flexible": true,
+        "size": {
+          "height": "600px",
+          "width": "100%"
+        }
+      }
+    }
+  },
+  "version": "1.0.2",
+  "frameworkVersion": "2.0",
+  "parameters": [
+    {
+      "name": "openAIKey",
+      "type": "text",
+      "required": true,
+      "secure": false,
+      "label": "OpenAI API Key"
+    }
+  ]
+}

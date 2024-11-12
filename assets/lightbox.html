@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet"
+        href="2https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0" />
+</head>
+
+<body>
+    <h3>AI Ticket Summarizer & Handoff Notes</h3>
+    <textarea type="textarea" id="aiInput" placeholder="Ask AI..." style="width:100%; height: 60px;"></textarea>
+    <button id="sendAiInput">Send</button>
+
+    <button id="summarizeButton">Summarize Conversation</button>
+    <button id="handoffButton">Prepare Handoff Notes</button>
+    <button id="openLightboxButton">Open Details</button>
+    <div id="summary"></div>
+    <div id="handoff"></div>
+
+    <div class="ai-loading">
+        <img src="loading.gif" alt="Loading..." style="height: 20px;" /> Processing...
+    </div>
+
+    <div id="chat"></div>
+
+    <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script type="text/javascript" src="iframe.js"></script>
+
+    <script>
+
+        let ticket_conversation = ""
+
+        var topBarClientPromise = client.get('instances').then(function (instancesData) {
+            var instances = instancesData.instances;
+            console.log(instances)
+            for (var instanceGuid in instances) {
+                if (instances[instanceGuid].location === 'ticket_sidebar') {
+                    return client.instance(instanceGuid);
+                }
+            }
+        });
+
+        topBarClientPromise.then(async function (topBarClient) {
+            // trigger an incoming_call event on the top bar
+
+            ticket_conversation = await topBarClient.get('ticket.conversation')
+            console.log(ticket_conversation);
+
+        })
+
+        // Function to close the lightbox
+        function closeLightbox() {
+            client.invoke('destroy');
+        }
+    </script>
+
+
+
+</body>
